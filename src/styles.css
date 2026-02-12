@@ -1,4 +1,125 @@
 /* styles.css */
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
 body {
-  background-color: rebeccapurple;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  /* min-width: 250px; */
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 25px;
+  padding-top: 50px;
+  padding-left: 30px;
+  border: 2px solid black;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 60px;
+  align-items: center;
+}
+
+main > div {
+  width: 100%;
+  max-width: 600px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.note-container {
+  display: flex;
+  flex-grow: 1;
+
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  transition: 500ms;
+}
+
+.note-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  flex-grow: 1;
+  z-index: -1;
+}
+
+.name, sub {
+  padding-left: 10px;
+}
+
+.name {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 1.2rem;
+  word-break: break-all;
+}
+
+sub {
+  padding-bottom: 10px;
+  flex-grow: 1;
+  display: flex;
+  gap: 6px;
+}
+
+input[type="checkbox"] {
+  align-self: center;
+  height: 27px;
+  width: 27px;
+  appearance: none;
+  border-radius: 50%;
+  border: 1px solid grey;
+  transition: 500ms;
+  
+}
+
+input[type="checkbox"]:checked {
+    transition: 100ms;
+    background-color: transparent;
+    border: none;
+    border: none;
+}   
+
+.note-container:has(input[type="checkbox"]:checked) {
+    transition: 400ms;
+    background-color: rgb(255, 123, 123);
+    background-image: url(check.svg);
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-color: rgba(165, 118, 118, 0.507);
+}
+
+.duedate, .priority {
+  border-radius: 9px;
+  padding: 1px 5px;
+  color: white;
+}
+
+.duedate {
+  background-color: rgb(74, 161, 63);
+}
+
+.priority {
+  background-color: rgb(184, 83, 83);
+}
+
+.description {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 50px;
+  word-break: break-all;
 }

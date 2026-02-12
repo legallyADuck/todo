@@ -4,11 +4,11 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 
 export default {
   mode: "development",
-  entry: "./src/index.js",
+  entry: "./src/entryPoint.js",
   output: {
-    filename: "main.js",
+    filename: "bundle.js",
     path: path.resolve(import.meta.dirname, "dist"), // return directory path of dist as a string 
-    clean: true, // clean outdated dir files
+    clean: true, // clean outdated dist files
   },
   devtool: "eval-source-map", // otherwise the lines/files wont match up
   devServer: {
