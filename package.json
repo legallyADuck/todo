@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode development --open"
+    "start": "webpack serve --mode development --open",
+    "svg": "mv ~/ダウンロード/*.svg ./src/images"
   },
   "keywords": [],
   "author": "",

@@ -6,26 +6,73 @@
     <title>Document</title>
 </head>
 <body>
+
     <aside class="sidebar">
-        <div class="close" data-action="close">close icon</div>
-        <div class="add">add icon</div>
-        <div>Welcome!</div>
+        <div class="sidebar-top">
+            <header class="project-title">Projects</header>
+            <div class="sidebar-icons">
+                <div class="add" data-action="addProjectTemplate"></div>
+                <div class="sidebar-close" data-action="close"></div>
+            </div>
+        </div>
+        <div class="sidebar-projects">
+            <div>Welcome!👋</div>
+            <div>wow</div>
+        </div>
     </aside>
+
     <main>
-        <div class="description">welcome! this is a test </div>
-        <div>
+        <div class="project-name">welcome! this is a test </div>
+
             <div class="note-container">
                 <input type="checkbox" id="done">
                 <div class="note-information">
                     <div class="name">name</div>
+                    <div class="description">description</div>
                     <sub>
                         <div class="duedate">date</div>
                         <div class="priority">urgent</div>
                     </sub>
                 </div>
-                <div>icon</div>
+               <div class="right-side-note">
+                   <div class="edit"></div>
+                    <div class="menu">
+                        <div class="changeDescription">description</div>
+                        <div class="changePriority">priority</div>
+                        <div class="deleteNote">duedate</div>
+                        <div class="deleteNote">delete</div>
+                    </div>
+               </div>
             </div>
-        </div>
+
+                        <div class="note-container">
+                <input type="checkbox" id="done">
+                <div class="note-information">
+                    <div class="name">name</div>
+                    <div class="description">description</div>
+                    <sub>
+                        <div class="duedate">date</div>
+                        <div class="priority">urgent</div>
+                    </sub>
+                </div>
+               <div class="right-side-note">
+                   <div class="edit"></div>
+                    <div class="menu">
+                        <div class="changeDescription">description</div>
+                        <div class="changePriority">priority</div>
+                        <div class="deleteNote">duedate</div>
+                        <div class="deleteNote">delete</div>
+                    </div>
+               </div>
+            </div>
+
+            <div class="create-note-flex">
+                <input type="text" placeholder="Task name" id="task-name">
+                <input type="text" placeholder="Description" id="description-name">
+                <input type="date">
+                <div class="priority-btn"></div>
+                <div class="send-btn"><div class="send"></div></div>
+            </div>
     </main>
 </body>
 </html>
