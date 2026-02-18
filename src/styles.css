@@ -1,9 +1,17 @@
 /* styles.css */
+
 body, html {
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  /* flex: 1; */
+
+  /* flex-direction: column; */
+  /* width: 100%; */
+  /* height: 100%; */
   margin: 0;
-  --ui-color-icons: rgb(63, 59, 59);
+  padding: 0;
+  --ui-color-icons: rgb(81, 76, 76);
   --ui-color-icons-hover: rgb(136, 136, 136);
   --ui-color-icons-dark: white;
   --ui-color-icons-hover-dark: rgb(245, 245, 245);
@@ -14,18 +22,18 @@ body, html {
 
 body {
   background-color: rgb(255, 255, 255);
-  display: flex;
 }
 
 .sidebar {
   width: 300px;
-  display: flex;
+  /* display: flex;
   align-items: start;
-  flex-direction: column;
-  gap: 7px;
+  flex-direction: column; */
   padding: 25px;
   padding-right: 12px;
   border-right: 2px solid var(--ui-color-border);
+  position: relative;
+  left: 0px;
 }
 
 .sidebar-icons {
@@ -57,20 +65,31 @@ body {
   font-size:medium;
 }
 
+container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px; 
+  width: 100%;
+  position: sticky;
+  top: 25px;
+}
+
 .sidebar-projects div:hover {
   background-color: wheat;
   transition: 250ms;
 }
 
 main {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   flex: 1;
   padding: 60px;
   align-items: center;
+  height: 100%;
 }
 
-main > div {
+main > * {
   width: 100%;
   max-width: 600px;
 }
@@ -81,6 +100,7 @@ main > div {
   display: flex;
   border-bottom: 1px solid var(--ui-color-border);
   transition: 500ms;
+  min-height: 50px;
 }
 
 .note-information {
@@ -90,7 +110,7 @@ main > div {
   flex-grow: 1;
 }
 
-.name, sub, .description {
+.name, .sub, .description {
   padding-left: 10px;
 }
 
@@ -100,7 +120,7 @@ main > div {
   font-size: 1.2rem;
   word-break: break-all;
 }
-sub {
+.sub {
   padding-top: 5px;
   padding-bottom: 10px;
   flex-grow: 1;
@@ -150,12 +170,12 @@ input[type="checkbox"]:checked {
 
 .duedate, .priority {
   border-radius: 9px;
-  padding: 1px 5px;
-  color: white;
+  /* padding: 1px 5px; */
+  color: rgb(39, 39, 39);
 }
 
 .duedate {
-  background-color: rgb(74, 161, 63);
+  /* background-color: rgb(74, 161, 63); */
 }
 
 .priority {
@@ -184,6 +204,7 @@ input[type="checkbox"]:checked {
   border-radius: 20px;
   color: transparent;
   visibility: hidden;
+  z-index: 1;
 }
 
 .right-side-note:has(.edit:hover) {
@@ -217,6 +238,7 @@ input[type="checkbox"]:checked {
 
 .create-note {
   mask-image: url(images/add-note.svg);
+  appearance: none;
 }
 
 .add, .sidebar-close, .edit, .create-note, .send {
@@ -259,37 +281,77 @@ input[type="checkbox"]:checked {
 /* create note input */
 
 .create-note-flex {
+  box-sizing: border-box;
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: start;
   margin-top: 2px;
-  padding: 20px;
-  gap: 1px;
-  height: 130px;
+  padding: 20px 32px;
+  gap: 10px;
+  height: 175px;
   border: 1px solid var(--ui-color-border);
-  border-radius: 25px;
-  background-color: rgb(243, 243, 243);
-  transition: 250ms;
+  border-radius: 35px;
+  background-color: transparent;
+  /* transition: 250ms; */
 }
 
 .send-btn {
   background-color: var(--legacy-color);
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  padding: 0px;
 }
 
-/* .create-note-flex:hover {
+.add-task-btn {
+  display: flex;
+  align-self: center;
+  width: 127px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: rgb(209, 209, 209);
+  justify-content: center;
+  align-items: center;
+}
+
+.add-task-btn:hover {
   filter: brightness(90%);
   transition: 250ms;
-} */
+}
 
 
 /* general text input */
 
-input[type="text"] {
+form input {
   border: none;
+  background-color: transparent;
 }
+
+form input:focus {
+  outline: none;
+}
+
+form input:nth-child(1) {
+  font-size: 1.2rem;
+}
+
+form input:nth-child(2) {
+  font-size: 1rem;
+}
+
+form input:nth-child(3) {
+  /* font-size: 1rem; */
+}
+
+form button {
+  align-self: flex-end;
+}
+
+form:has(input:focus){
+  outline: rgb(56, 56, 56) .5px solid;
+}
+
