@@ -5,8 +5,10 @@ export const ui = {
     get projectsArray() {return Array.from(ui.sidebarProjects.children)},
     get main() {return document.querySelector("main")},
     get form() {return document.querySelector("form")},
+    get title() {return document.querySelector(".project-name")},
     refreshForm() {
-        this.form.querySelectorAll("input");
+        const inputs = this.form.querySelectorAll("input");
+        inputs.forEach((input) => input.value = "")
     },
     refreshMain() {
         if (ui.main.childElementCount === 0) return console.warn("main was already empty, no need to refresh");
@@ -20,7 +22,6 @@ export const create = {
         input.placeholder = placeholder;
         if (action) input.dataset.keydown = action;
         input.type = "text";
-        input.required = true
         return input
     }, 
     checkboxInput (action, id) {
@@ -29,10 +30,11 @@ export const create = {
         input.type = "checkbox";
         return input
     },
-    tab(name) {
+    tab(project) {
         const tab = document.createElement("div");
-        tab.textContent = name;
+        tab.textContent = project.name;
         tab.dataset.click = "tabClick"
+        tab.dataset.id = project.id;
         return tab;
     },
     title(name) {
@@ -41,11 +43,11 @@ export const create = {
         title.className = "project-name";
         return title;
     },
-    note(name, descriptionTxt, date) {
+    note(name, descriptionTxt, date, id) {
         // ── Main container ─────────────────────────────────────────────
         const noteContainer = document.createElement("div");
         noteContainer.className = "note-container";
-        console.log(ui.main.lastElementChild)
+        noteContainer.dataset.id = id;
         ui.main.lastElementChild.insertAdjacentElement("beforebegin", noteContainer)
 
         // ── Checkbox ───────────────────────────────────────────────────
@@ -111,7 +113,7 @@ export const create = {
         container.dataset.click = "createForm";
 
         const icon = document.createElement("div");
-        icon.className = "create-note";
+        icon.textContent = "+"
 
         const text = document.createElement("div");
         text.textContent = "Add task";
@@ -142,6 +144,10 @@ export const create = {
         dateInput.type = "date";
         dateInput.id = "date";
 
+
+        const buttonContainer = document.createElement("div")
+        buttonContainer.className = "btn-container";
+
         // Submit button
         const btn = document.createElement("button")
         btn.className = "send-btn";
@@ -153,11 +159,19 @@ export const create = {
 
         btn.appendChild(icon);
 
+        // cancel button    
+        const btnClose = document.createElement("button")
+        btnClose.className = "close";
+        btnClose.dataset.click = "closeForm";
+        btnClose.textContent = "Close";
+
+        buttonContainer.append(btnClose, btn)
+
         container.append(
         inputName,
         inputDescription,
         dateInput,
-        btn
+        buttonContainer
         );
 
         ui.main.appendChild(container);

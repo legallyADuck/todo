@@ -2,7 +2,7 @@ import "./styles.css";
 import { ui, create } from "./domAssets.js";
 import { Note, Project, sidebar } from "./data.js";
 
-class EventManager {
+class EventManager { // NEVER DO THIS AGAIN, this brakes the U pattern, i only need one intance
     constructor(selector, event) {
         this.body = ui.body;
         this.selector = selector;
@@ -55,13 +55,28 @@ const domEvent = {
 
     enterLogic(input, e) {
         if (e.key != "Enter") return;
-        if(input.value == "") return;
-        input.remove()
+        if (input.value == "") return;
+        input.remove();
         this.createProject(input.value) // create project if enter
     },
 
+    enterInput(input, e) {
+        if (e.key != "Enter") return;
+        if (input.value == "") return;
+        const project = sidebar.currentProject(ui.main.dataset.id)
+        
+        const noteElement = input.closest(".note-container"); 
+        const noteObject = project.currentNote(noteElement.dataset.id); 
+        const description = noteElement.querySelector(".description");
+        
+        description.textContent = input.value;
+        noteObject.description = input.value; 
+
+        input.remove()
+    },
+
     tabClick(target) { 
-        const project = sidebar.changeCurrentProject(target.textContent);
+        const project = sidebar.currentProject(target.dataset.id);
         this.displayProject(project);
     },
 
@@ -70,40 +85,57 @@ const domEvent = {
         create.form()
     },
 
+    closeForm(target, e) {
+        e.preventDefault();
+        ui.form.remove();
+        create.addTask()
+    },
+
     submit(target, e) {
         e.preventDefault();
         const form = new Form(e.target);
-        sidebar.currentProject.notes.push(new Note(form.name, form.description, form.date));
-        create.note(form.name, form.description, form.date);
+        const newNoteId = crypto.randomUUID;
+        create.note(form.name, form.description, form.date, noteId);
+        const projectId = ui.main.dataset.id;
+        sidebar.currentProject(projectId).notes.push(new Note(form.name, form.description, form.date, newNoteId));
         ui.refreshForm();
     },
     
-    changeDescription() {
-        
+    changeDescription(target, e) {
+        const noteElement = target.closest(".note-container")        
+        const description = noteElement.querySelector(".description");
+        const input = create.textInput("description", "enterInput")
+
+        description.textContent = "";
+        description.append(input);
+        input.focus();
     },
 
     createProject(textContent) {
-        const id = crypto.randomUUID();
-        sidebar.projects.push(new Project(textContent, id)); // create new project 
-        const project = sidebar.changeCurrentProject(id); // if input, change the project focus to the new object
+        const id = crypto.randomUUID(); // assign a random id to project
+        sidebar.projects.push(new Project(textContent, id));
+        const project = sidebar.currentProject(id);
         this.createTab(project);
         this.displayProject(project);
     },
 
     createTab(project) {
-        ui.sidebarProjects.append(create.tab(project.name))
+        ui.sidebarProjects.append(create.tab(project))
     },
-    displayDefaultProject(textContent) { 
-        const project = sidebar.changeCurrentProject(textContent); // if input, change the project focus to the new object
+
+    displayDefaultProject(id) { 
+        const project = sidebar.currentProject(id); // if input, change the project focus to the new object
         this.createTab(project);
         this.displayProject(project);
     }, 
+
     displayProject(project){ // display a project that already exists
         ui.refreshMain();
+        ui.main.dataset.id = project.id;
         ui.main.append(create.title(project.name));
         create.addTask();
         for (const note of project.notes) {
-            create.note(note.name, note.description, note.duedate, note.priority);
+            create.note(note.name, note.description, note.duedate, note.id);
         }
     },
 }
@@ -112,4 +144,6 @@ new Event("[data-click]", "click");
 new Event("[data-keydown]", "keydown")
 new Event("[data-submit]", "submit")
 
-domEvent.displayDefaultProject(sidebar.projects[0].name); // make the welcome the first page
+domEvent.displayDefaultProject(sidebar.projects[0].id); // make the welcome the first page
+
+console.log(sidebar.projects)

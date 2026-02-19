@@ -15,9 +15,9 @@ body, html {
   --ui-color-icons-hover: rgb(136, 136, 136);
   --ui-color-icons-dark: white;
   --ui-color-icons-hover-dark: rgb(245, 245, 245);
-  --ui-color-border: var(--ui-color-icons);
-  --legacy-color: #95b5ff;
-
+  --ui-color-border: rgb(82, 76, 76);
+  --legacy-color: rgb(255, 164, 164);
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
 }
 
 body {
@@ -48,7 +48,7 @@ body {
 }
 
 .project-title {
-  font-size:larger;
+  font-size:x-large;
 }
 
 .sidebar-projects {
@@ -75,7 +75,7 @@ container {
 }
 
 .sidebar-projects div:hover {
-  background-color: wheat;
+  background-color: var(--legacy-color);
   transition: 250ms;
 }
 
@@ -99,8 +99,7 @@ main > * {
 .note-container {
   display: flex;
   border-bottom: 1px solid var(--ui-color-border);
-  transition: 500ms;
-  min-height: 50px;
+  min-height: 70px;
 }
 
 .note-information {
@@ -157,7 +156,7 @@ input[type="checkbox"]:checked {
 
 .note-container:has(input[type="checkbox"]:checked) {
     transition: 300ms;
-    background-color: rgb(255, 141, 141);
+    background-color: var(--legacy-color);
     background-image: url(images/check-circle.svg);
     background-size: 50px;
     background-repeat: no-repeat;
@@ -191,7 +190,7 @@ input[type="checkbox"]:checked {
 
 .menu {
   display: flex;
-  gap: 3px;
+  gap: 7px;
   position: relative;
   bottom: 0px;
   right: 50px;
@@ -205,6 +204,11 @@ input[type="checkbox"]:checked {
   color: transparent;
   visibility: hidden;
   z-index: 1;
+}
+
+.menu div:hover {
+  filter: brightness(75%);
+  cursor: pointer;
 }
 
 .right-side-note:has(.edit:hover) {
@@ -238,7 +242,6 @@ input[type="checkbox"]:checked {
 
 .create-note {
   mask-image: url(images/add-note.svg);
-  appearance: none;
 }
 
 .add, .sidebar-close, .edit, .create-note, .send {
@@ -247,7 +250,7 @@ input[type="checkbox"]:checked {
   height: var(--icon-size);
   mask-size: contain;
   mask-repeat: no-repeat;
-  transition: 250ms;
+  transition: 150ms;
 }
 
 .add, .sidebar-close, .edit, .create-note {
@@ -259,13 +262,15 @@ input[type="checkbox"]:checked {
 }
 
 .add:hover, .sidebar-close:hover, .edit:hover, .send:hover {
-  transition: 250ms;
+  transition: 150ms;
   background-color: var(--ui-color-icons-hover);
+  cursor: pointer;
 }
 
 .send:hover {
-  transition: 250ms;
+  transition: 150ms;
   background-color: var(--ui-color-icons-hover-dark);
+  cursor: pointer;
 }
 
 .right-side-note {
@@ -281,77 +286,114 @@ input[type="checkbox"]:checked {
 /* create note input */
 
 .create-note-flex {
+  transition: 100ms;
   box-sizing: border-box;
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: start;
   margin-top: 2px;
-  padding: 20px 32px;
-  gap: 10px;
-  height: 175px;
-  border: 1px solid var(--ui-color-border);
-  border-radius: 35px;
+  padding: 15px 24px;
+  gap: 1px;
+  /* height: 130px; */
+  outline: 1px solid var(--ui-color-border);
+  border-radius: 8px;
   background-color: transparent;
-  /* transition: 250ms; */
 }
 
-.send-btn {
-  background-color: var(--legacy-color);
-  width: 40px;
-  height: 40px;
+.send-btn, .close {
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
   padding: 0px;
+  border: none;
+}
+
+.send-btn {
+  background-color: var(--legacy-color);
+  width: 35px;
+}
+
+.close{
+  background-color: rgb(63, 63, 63);
+  width: 65px;
+  color: white;
+  font-size: 13px;
+  font-weight: 900;
 }
 
 .add-task-btn {
   display: flex;
-  align-self: center;
-  width: 127px;
+  gap: 5px;
+  justify-content: flex-start;
   height: 40px;
   border-radius: 8px;
-  background-color: rgb(209, 209, 209);
-  justify-content: center;
   align-items: center;
+  margin-top: 5px;
+  margin-left: 15px;
+  transition: 100ms;
+}
+
+.add-task-btn div:nth-child(1) {
+  font-size: 30px;
 }
 
 .add-task-btn:hover {
-  filter: brightness(90%);
-  transition: 250ms;
+  transition: 100ms;
+  color: var(--legacy-color);
 }
+
+.btn-container {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
 
 
 /* general text input */
 
-form input {
+form {
+  margin-top: 10px !important;
+}
+
+main input {
   border: none;
   background-color: transparent;
 }
 
-form input:focus {
+main input:focus {
   outline: none;
 }
 
 form input:nth-child(1) {
-  font-size: 1.2rem;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 form input:nth-child(2) {
-  font-size: 1rem;
+  font-size: 15px;
 }
 
 form input:nth-child(3) {
-  /* font-size: 1rem; */
+  margin-top: 7px;
 }
 
 form button {
   align-self: flex-end;
+  transition: 250ms;
+}
+
+form button:hover {
+  transition: 250ms;
+  filter: brightness(80%)
 }
 
 form:has(input:focus){
-  outline: rgb(56, 56, 56) .5px solid;
+  transition: 100ms;
+  outline: 1px solid rgb(194, 194, 194);
 }
 
